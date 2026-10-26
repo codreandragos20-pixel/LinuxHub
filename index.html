@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="LinuxHub — explorează și compară distribuții Linux.">
+  <title>LinuxHub — Linux Distribution Explorer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-glow"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="LinuxHub Home">
+      <span class="brand-icon">L</span>
+      <span>Linux<span class="accent">Hub</span></span>
+    </a>
+
+    <nav class="top-actions">
+      <a href="#catalog" data-i18n="navCatalog">Catalog</a>
+      <a href="#about" data-i18n="navAbout">Despre proiect</a>
+      <select id="languageSelect" aria-label="Language">
+        <option value="ro">Română</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+      </select>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="status-dot"></span>
+        <span data-i18n="heroBadge">EXPLOREAZĂ LUMEA LINUX</span>
+      </div>
+
+      <h1>
+        Găsește-ți următorul<br>
+        <span class="gradient-text">sistem de operare.</span>
+      </h1>
+
+      <p class="hero-description" data-i18n="heroDescription">
+        Descoperă distribuții Linux, compară caracteristicile lor și găsește
+        sistemul potrivit pentru calculatorul tău.
+      </p>
+
+      <a href="#catalog" class="primary-button">
+        <span data-i18n="exploreButton">Explorează catalogul</span>
+        <span aria-hidden="true">↘</span>
+      </a>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <strong id="totalCount">78</strong>
+          <span data-i18n="statDistros">distribuții</span>
+        </div>
+        <div class="stat">
+          <strong>3</strong>
+          <span data-i18n="statLanguages">limbi</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span data-i18n="statDiscover">de explorat</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" class="catalog-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow" data-i18n="eyebrow">BIBLIOTECA LINUX</span>
+          <h2 data-i18n="catalogTitle">Explorează distribuțiile</h2>
+          <p data-i18n="catalogDescription">
+            De la sisteme pentru începători până la distribuții avansate.
+          </p>
+        </div>
+        <div class="result-counter">
+          <span id="visibleCount">78</span>
+          <span data-i18n="resultsLabel">rezultate</span>
+        </div>
+      </div>
+
+      <div class="filter-panel">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input
+            type="search"
+            id="search"
+            placeholder="Caută o distribuție..."
+            data-i18n-placeholder="searchPlaceholder"
+            autocomplete="off"
+          >
+          <kbd> / </kbd>
+        </label>
+
+        <label class="filter-control">
+          <span data-i18n="categoryLabel">Categorie</span>
+          <select id="categoryFilter">
+            <option value="all" data-i18n="allCategories">Toate categoriile</option>
+            <option value="beginner" data-i18n="beginner">Începători</option>
+            <option value="general" data-i18n="general">Uz general</option>
+            <option value="advanced" data-i18n="advanced">Avansați</option>
+            <option value="security" data-i18n="security">Securitate</option>
+            <option value="gaming" data-i18n="gaming">Gaming</option>
+            <option value="server" data-i18n="server">Servere</option>
+            <option value="lightweight" data-i18n="lightweight">Calculatoare vechi</option>
+            <option value="special" data-i18n="special">Specializate</option>
+          </select>
+        </label>
+
+        <label class="filter-control">
+          <span data-i18n="baseLabel">Familie</span>
+          <select id="baseFilter">
+            <option value="all" data-i18n="allBases">Toate familiile</option>
+            <option value="Debian">Debian</option>
+            <option value="Ubuntu">Ubuntu</option>
+            <option value="Arch">Arch Linux</option>
+            <option value="Fedora">Fedora</option>
+            <option value="Red Hat">Red Hat</option>
+            <option value="Independent" data-i18n="independent">Independentă</option>
+            <option value="Other" data-i18n="other">Altele</option>
+          </select>
+        </label>
+
+        <label class="filter-control">
+          <span data-i18n="sortLabel">Sortare</span>
+          <select id="sortFilter">
+            <option value="name" data-i18n="sortName">Nume A–Z</option>
+            <option value="name-desc" data-i18n="sortNameDesc">Nume Z–A</option>
+            <option value="beginner" data-i18n="sortBeginner">Începători mai întâi</option>
+          </select>
+        </label>
+
+        <button type="button" id="resetFilters" class="reset-button"
+          data-i18n="resetFilters">Resetează</button>
+      </div>
+
+      <div class="catalog-meta">
+        <span class="live-indicator"></span>
+        <span data-i18n="catalogReady">Catalog disponibil pentru explorare</span>
+      </div>
+
+      <div id="distroGrid" class="distro-grid" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty-state" hidden>
+        <div class="empty-icon">⌕</div>
+        <h3 data-i18n="noResults">Nu am găsit rezultate</h3>
+        <p data-i18n="noResultsDescription">
+          Încearcă alt termen sau schimbă filtrele.
+        </p>
+        <button type="button" id="clearSearch" class="primary-button"
+          data-i18n="clearSearch">Șterge filtrele</button>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="about-icon">L<span>H</span></div>
+      <div class="about-content">
+        <span class="eyebrow" data-i18n="aboutEyebrow">DESPRE PROIECT</span>
+        <h2 data-i18n="aboutTitle">Bine ai venit la LinuxHub.</h2>
+        <p data-i18n="aboutText">
+          LinuxHub este un catalog educațional creat pentru a te ajuta să
+          descoperi lumea Linux. Poți compara distribuții, afla pentru ce sunt
+          potrivite și vizita site-urile lor oficiale. Proiectul este destinat
+          începătorilor, pasionaților de Linux și utilizatorilor avansați.
+        </p>
+        <p class="about-note" data-i18n="aboutNote">
+          Informațiile și cerințele pot varia în funcție de versiunea distribuției.
+          Verifică întotdeauna documentația oficială înainte de instalare.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand footer-brand" href="#">
+      <span class="brand-icon">L</span>
+      <span>Linux<span class="accent">Hub</span></span>
+    </a>
+    <p data-i18n="footerText">Creat pentru curioșii lumii Linux.</p>
+    <a href="#catalog" data-i18n="backToTop">Înapoi la catalog ↑</a>
+  </footer>
+
+  <dialog id="detailsDialog" class="details-dialog">
+    <button id="closeDialog" class="close-dialog" type="button"
+      aria-label="Close details">×</button>
+    <div id="detailsContent"></div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
